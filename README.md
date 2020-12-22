@@ -7,7 +7,7 @@ Deverá construir uma API RESTful usando a tecnologia NodeJS.
 
 ### Requisitos
 
-- [ ] Criar contas testes nas plataformas Pipedrive e Bling.
+- [x] Criar contas testes nas plataformas Pipedrive e Bling.
 
 - [ ] Criar uma integração entre as plataformas Pipedrive e Bling. (A integração deve buscar as oportunidades com status igual a ganho no Pipedrive, depois inseri-las como pedido no Bling).
 
