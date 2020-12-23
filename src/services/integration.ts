@@ -20,7 +20,7 @@ export default class IntegrationService {
         .map(async deal => {
           const blingOrder: CreateOrderDto = {
             numero: String(deal.id),
-            data: format(new Date(deal.won_time), 'yyyy-MM-dd'),
+            data: format(new Date(deal.won_time), 'dd-MM-yyyy'),
             cliente: {
               numero: String(deal.person_id.value),
               nome: deal.person_name,

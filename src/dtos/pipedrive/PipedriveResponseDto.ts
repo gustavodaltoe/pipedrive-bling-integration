@@ -2,7 +2,7 @@
 export default interface PipedriveResponseDto<T> {
   success: boolean;
   data: T[];
-  additional_data: {
+  additional_data?: {
     pagination: {
       start: number;
       limit: number;

@@ -1,6 +1,5 @@
 import { AxiosInstance } from 'axios';
 import { Inject, Service } from 'typedi';
-import * as js2xmlparser from 'js2xmlparser';
 import CreateOrderDto from '../dtos/bling/CreateOrderDto';
 
 @Service()
