@@ -11,7 +11,7 @@ Deverá construir uma API RESTful usando a tecnologia NodeJS.
 
 - [x] Criar uma integração entre as plataformas Pipedrive e Bling. (A integração deve buscar as oportunidades com status igual a ganho no Pipedrive, depois inseri-las como pedido no Bling).
 
-- [ ] Criar banco de dados mongo, existem serviços como MongoDB Atlas para criar de graça
+- [x] Criar banco de dados mongo, existem serviços como MongoDB Atlas para criar de graça
 
 - [ ] Criar uma collection no banco de dados MongoDB agregando as oportunidades inseridas no Bling por dia e valor total.
 

@@ -20,4 +20,6 @@ export default {
     apiToken: process.env.PIPEDRIVE_API_TOKEN,
     companyDomain: process.env.PIPEDRIVE_COMPANY_DOMAIN,
   },
+
+  databaseURL: process.env.MONGO_DATABASE_URL,
 };

@@ -9,4 +9,6 @@ const app = express();
 
 loaders(app);
 
-app.listen(config.port);
+app.listen(config.port, () => {
+  console.log(`App running on port ${config.port} ✨`);
+});
