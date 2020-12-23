@@ -1,8 +1,19 @@
 import axios from 'axios';
 import Container from 'typedi';
 import config from '../config';
+import order from '../models/order';
 
 export default () => {
+  const models = [
+    {
+      name: 'orderModel',
+      model: order,
+    },
+  ];
+  models.forEach(m => {
+    Container.set(m.name, m.model);
+  });
+
   Container.set(
     'pipedriveApi',
     axios.create({

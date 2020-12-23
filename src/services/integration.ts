@@ -1,15 +1,19 @@
 import { format } from 'date-fns';
-import { Service } from 'typedi';
+import { Inject, Service } from 'typedi';
+import { Model } from 'mongoose';
 import CreateOrderDto from '../dtos/bling/CreateOrderDto';
 import DealDto from '../dtos/pipedrive/DealDto';
 import BlingService from './bling';
 import PipedriveService from './pipedrive';
+import { IOrder } from '../interfaces/IOrder';
 
 @Service()
 export default class IntegrationService {
   constructor(
     private pipedriveService: PipedriveService,
     private blingService: BlingService,
+    @Inject('orderModel')
+    private orderModel: Model<IOrder>,
   ) {}
 
   public async start(offset = 0, totalOrders = 0): Promise<any> {
@@ -52,8 +56,17 @@ export default class IntegrationService {
           },
         ],
       };
+      const isOrderAlreadyCreated = !!(await this.orderModel.findOne({
+        pipedriveId: deal.id,
+      }));
+      if (isOrderAlreadyCreated) return;
 
-      return this.blingService.createOrder(blingOrder);
+      await this.blingService.createOrder(blingOrder);
+      this.orderModel.create({
+        pipedriveId: deal.id,
+        date: new Date(deal.won_time),
+        totalValue: deal.value,
+      });
     });
   }
 }
