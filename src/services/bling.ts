@@ -33,6 +33,8 @@ export default class BlingService {
                 <descricao>${item.descricao}</descricao>
                 <qtde>${item.qtde}</qtde>
                 <vlr_unit>${item.vlr_unit}</vlr_unit>
+                <un>${item.un}</un>
+                <vlr_desconto>${item.vlr_desconto}</vlr_desconto>
               </item>
             `;
           })}

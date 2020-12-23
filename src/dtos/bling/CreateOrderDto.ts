@@ -1,3 +1,5 @@
+import ItemDto from './ItemDto';
+
 /* eslint-disable camelcase */
 export default interface CreateOrderDto {
   numero: string;
@@ -8,12 +10,5 @@ export default interface CreateOrderDto {
     fone: string;
     email: string;
   };
-  itens: [
-    {
-      codigo: string;
-      descricao: string;
-      qtde: number;
-      vlr_unit: number;
-    },
-  ];
+  itens: ItemDto[];
 }

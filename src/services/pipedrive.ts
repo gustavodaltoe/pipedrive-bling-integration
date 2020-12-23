@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { Inject, Service } from 'typedi';
 import DealDto from '../dtos/pipedrive/DealDto';
+import DealProductDto from '../dtos/pipedrive/DealProductDto';
 import PipedriveResponseDto from '../dtos/pipedrive/PipedriveResponseDto';
 import scheduleRequests from '../utils/scheduleRequests';
 
@@ -20,5 +21,11 @@ export default class PipedriveService {
         start: offset,
       },
     });
+  }
+
+  async listProductsFromDeal(id: number) {
+    return this.api.get<PipedriveResponseDto<DealProductDto>>(
+      `/deals/${id}/products`,
+    );
   }
 }

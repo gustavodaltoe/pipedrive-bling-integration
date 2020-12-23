@@ -6,6 +6,7 @@ import DealDto from '../dtos/pipedrive/DealDto';
 import BlingService from './bling';
 import PipedriveService from './pipedrive';
 import { IOrder } from '../interfaces/IOrder';
+import ItemDto from '../dtos/bling/ItemDto';
 
 @Service()
 export default class IntegrationService {
@@ -38,6 +39,13 @@ export default class IntegrationService {
 
   private createBlingOrdersFromDeals(deals: DealDto[]) {
     return deals.map(async deal => {
+      const isOrderAlreadyCreated = !!(await this.orderModel.findOne({
+        pipedriveId: deal.id,
+      }));
+      if (isOrderAlreadyCreated) return;
+
+      const itens = await this.getParsedItensFromDeal(deal);
+
       const blingOrder: CreateOrderDto = {
         numero: String(deal.id),
         data: format(new Date(deal.won_time), 'dd-MM-yyyy'),
@@ -47,19 +55,8 @@ export default class IntegrationService {
           email: deal.person_id.email[0].value,
           fone: deal.person_id.phone[0].value,
         },
-        itens: [
-          {
-            codigo: '0',
-            descricao: 'pipedrive',
-            qtde: 1,
-            vlr_unit: deal.value,
-          },
-        ],
+        itens,
       };
-      const isOrderAlreadyCreated = !!(await this.orderModel.findOne({
-        pipedriveId: deal.id,
-      }));
-      if (isOrderAlreadyCreated) return;
 
       await this.blingService.createOrder(blingOrder);
       this.orderModel.create({
@@ -68,6 +65,39 @@ export default class IntegrationService {
         totalValue: deal.value,
       });
     });
+  }
+
+  private async getParsedItensFromDeal(deal: DealDto): Promise<ItemDto[]> {
+    const {
+      data: dealItens,
+    } = await this.pipedriveService.listProductsFromDeal(deal.id);
+
+    const isDealWithoutProducts = !dealItens.data;
+    if (isDealWithoutProducts) {
+      return [
+        {
+          codigo: '0',
+          descricao: 'pipedrive',
+          qtde: 1,
+          vlr_unit: deal.value,
+          vlr_desconto: 0,
+          un: 'un',
+        },
+      ];
+    }
+
+    const itens: ItemDto[] = dealItens.data.map(item => {
+      return {
+        codigo: String(item.product_id),
+        descricao: item.name,
+        qtde: item.quantity,
+        vlr_unit: item.item_price,
+        un: 'un',
+        vlr_desconto: item.discount_percentage,
+      };
+    });
+
+    return itens;
   }
 
   async findAll() {
