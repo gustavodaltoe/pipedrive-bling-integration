@@ -1,13 +1,16 @@
 import { AxiosInstance } from 'axios';
 import { Inject, Service } from 'typedi';
 import CreateOrderDto from '../dtos/bling/CreateOrderDto';
+import scheduleRequests from '../utils/scheduleRequests';
 
 @Service()
 export default class BlingService {
   constructor(
     @Inject('blingApi')
     private api: AxiosInstance,
-  ) {}
+  ) {
+    scheduleRequests(api, 200);
+  }
 
   async createOrder(order: CreateOrderDto): Promise<any> {
     const { cliente, itens, data, numero } = order;

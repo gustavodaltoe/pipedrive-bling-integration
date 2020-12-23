@@ -39,7 +39,8 @@
 		],
 		"class-methods-use-this": "off",
 		"no-use-before-define": "off",
-		"no-useless-constructor": "off"
+		"no-useless-constructor": "off",
+		"no-await-in-loop": "off"
 	},
 	"settings": {
 		"import/resolver": {
