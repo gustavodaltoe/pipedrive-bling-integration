@@ -10,7 +10,12 @@ export default class PipedriveService {
     private api: AxiosInstance,
   ) {}
 
-  async listDeals() {
-    return this.api.get<PipedriveResponseDto<DealDto>>('/deals');
+  async listWonDeals(offset = 0) {
+    return this.api.get<PipedriveResponseDto<DealDto>>('/deals', {
+      params: {
+        status: 'won',
+        start: offset,
+      },
+    });
   }
 }
