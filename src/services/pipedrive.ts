@@ -21,8 +21,4 @@ export default class PipedriveService {
       },
     });
   }
-
-  async duplicate(id: number) {
-    return this.api.post(`/deals/${id}/duplicate`);
-  }
 }
