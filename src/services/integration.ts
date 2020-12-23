@@ -16,7 +16,7 @@ export default class IntegrationService {
     private orderModel: Model<IOrder>,
   ) {}
 
-  public async start(offset = 0, totalOrders = 0): Promise<any> {
+  async start(offset = 0, totalOrders = 0): Promise<any> {
     const { data: deals } = await this.pipedriveService.listWonDeals(offset);
 
     // Not awaiting to let the creation requests on the background
@@ -68,5 +68,13 @@ export default class IntegrationService {
         totalValue: deal.value,
       });
     });
+  }
+
+  async findAll() {
+    const orders = await this.orderModel.find();
+
+    return {
+      orders,
+    };
   }
 }
