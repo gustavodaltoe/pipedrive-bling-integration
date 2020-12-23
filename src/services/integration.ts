@@ -15,7 +15,7 @@ export default class IntegrationService {
   public async start(offset = 0, totalOrders = 0): Promise<any> {
     const { data: deals } = await this.pipedriveService.listWonDeals(offset);
 
-    // Not awaiting to let the requests on the background
+    // Not awaiting to let the creation requests on the background
     // and focusing on return the total of created orders
     const blingOrdersPromises = this.createBlingOrdersFromDeals(deals.data);
 
