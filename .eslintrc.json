@@ -38,7 +38,8 @@
 			}
 		],
 		"class-methods-use-this": "off",
-		"no-use-before-define": "off"
+		"no-use-before-define": "off",
+		"no-useless-constructor": "off"
 	},
 	"settings": {
 		"import/resolver": {
