@@ -1,13 +1,14 @@
 import { Request, Response, Router } from 'express';
 import Container from 'typedi';
-import PipedriveService from '../../services/pipedrive';
+import IntegrationService from '../../services/integration';
 
 const routes = Router();
 
 routes.get('/start', async (req: Request, res: Response) => {
-  const pipedriveService = Container.get(PipedriveService);
-  const { data } = await pipedriveService.listDeals();
-  return res.json(data);
+  const integrationService = Container.get(IntegrationService);
+  const response = await integrationService.start();
+
+  return res.json(response);
 });
 
 export default routes;
