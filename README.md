@@ -1,5 +1,21 @@
 # Integração entre Pipedrive e Bling
 
+## Instruções para executar a aplicação
+
+`yarn install` para instalar as dependências
+
+`cp .env.example .env` para copiar o arquivo de variáveis de ambiente e preencha com as informações do bling, pipedrive e mongo
+
+`yarn start` para iniciar o servidor
+
+## Endpoints
+
+**/integration/start** -> Inicia a importação dos dados do pipedrive para o bling e retorna a quantidade de oportunidades processadas.
+
+**/integration/orders** -> Lista todas as oportunidades que foram consolidadas na collection do MongoDB.
+
+## Desafio:
+
 ### Objetivo
 
 Deverá construir uma API RESTful usando a tecnologia NodeJS.
